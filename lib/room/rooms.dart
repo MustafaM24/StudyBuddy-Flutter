@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:studybuddy/main.dart';
-
+import 'package:studybuddy/room/room.dart';
+import 'package:studybuddy/widgets/homeBar.dart';
 
 List rooms = [];
 // Rooms {
@@ -13,7 +14,6 @@ List rooms = [];
 //     numjoined
 //}
 
-
 class CreateRoom extends StatelessWidget {
   CreateRoom({Key? key}) : super(key: key);
 
@@ -24,30 +24,47 @@ class CreateRoom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF3f4156),
-      appBar: AppBar(
-        elevation: 0.0,
-        centerTitle: true,
-        title: const Text(
-          "CREATE STUDY ROOM",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 15.0,
-            letterSpacing: 1.1,
-          ),
-        ),
-        backgroundColor: const Color(0xFF696d97),
-      ),
+      backgroundColor: const Color(0xFF2D2D39),
+      // appBar: AppBar(
+      //   elevation: 0.0,
+      //   centerTitle: true,
+      //   title: const Text(
+      //     "CREATE STUDY ROOM",
+      //     style: TextStyle(
+      //       color: Colors.white,
+      //       fontSize: 15.0,
+      //       letterSpacing: 1.1,
+      //     ),
+      //   ),
+      //   backgroundColor: const Color(0xFF696d97),
+      // ),
       body: SafeArea(
         child: Center(
           child: ListView(
             children: [
+              const HomeBar(),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const SizedBox(
+                      height: 35.0,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Text(
+                          "CREATE STUDY ROOM",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.0,
+                              letterSpacing: 1.1),
+                          // fontWeight: FontWeight.w400),
+                        ),
+                      ],
+                    ),
                     const SizedBox(
                       height: 35.0,
                     ),
@@ -70,7 +87,7 @@ class CreateRoom extends StatelessWidget {
                         decoration: const InputDecoration(
                           enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color(0xFF696d97), width: 1)),
+                                  color: Color(0xFF71C5DD), width: 1)),
                         ),
                       ),
                     ),
@@ -94,7 +111,7 @@ class CreateRoom extends StatelessWidget {
                         decoration: const InputDecoration(
                           enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color(0xFF696d97), width: 1)),
+                                  color: Color(0xFF71C5DD), width: 1)),
                         ),
                       ),
                     ),
@@ -118,7 +135,7 @@ class CreateRoom extends StatelessWidget {
                         decoration: const InputDecoration(
                           enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color(0xFF696d97), width: 1)),
+                                  color: Color(0xFF71C5DD), width: 1)),
                         ),
                       ),
                     ),
@@ -159,10 +176,18 @@ class CreateRoom extends StatelessWidget {
                               elevation: 3.0,
                             ),
                             onPressed: () {
-                              rooms.add([name.text, topic.text, about.text, "mm05548", "Mustafa Madraswala", 2]);
+                              rooms.add([
+                                name.text,
+                                topic.text,
+                                about.text,
+                                "mm05548",
+                                "Mustafa Madraswala",
+                                2
+                              ]);
                               Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(builder: (context) => const MyHomePage())
-                              );
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const MyHomePage()));
                             },
                             child: const Text(
                               "Create Room",
@@ -201,13 +226,22 @@ class RoomCard extends StatelessWidget {
       color: const Color(0xFF51546e),
       child: Column(
         children: [
-          const SizedBox(height: 10.0,),
+          const SizedBox(
+            height: 10.0,
+          ),
           Row(
             children: [
               const SizedBox(width: 12.0),
-              const Icon(Icons.person_rounded, color: Colors.blue, size: 30.0,),
-              const SizedBox(width: 9.0,),
-              Text("@${data[3]}",
+              const Icon(
+                Icons.person_rounded,
+                color: Color(0xFF71C5DD),
+                size: 25.0,
+              ),
+              const SizedBox(
+                width: 9.0,
+              ),
+              Text(
+                "@${data[3]}",
                 style: const TextStyle(
                   color: Color(0xFF71C5DD),
                   fontWeight: FontWeight.w400,
@@ -216,22 +250,87 @@ class RoomCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 10.0,),
+          const SizedBox(
+            height: 10.0,
+          ),
           Row(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            // children: [
+            //   Column(
+            //     crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20.0, 6.0, 15.0, 20.0),
-                child: Text(data[0],
-                  style: const TextStyle(
-                    fontSize: 18.5,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w400,
+              // const Text(
+              //   "Haven't signed up yet?",
+              //   style: TextStyle(
+              //     color: Color(0xFFb2bdbd),
+              //     fontSize: 14.0,
+              //   ),
+              // ),
+              SizedBox(
+                height: 35.0,
+                width: 130.0,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => Room(index: index)));
+                  },
+                  // child: const Text(
+                  //   "Sign Up",
+                  // child: const Text(
+                  // data[0],
+                  child: Text(
+                    "${data[0]}",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 18.5,
+                      letterSpacing: 0.6,
+                    ),
                   ),
                 ),
-              ),
+              )
             ],
+
+            // ),
+            // ],
           ),
-          const SizedBox(height: 5.0,),
+
+          // actions: [
+          //   TextButton(
+          //     onPressed: () {
+          //       Navigator.pushReplacement(
+          //         context,
+          //         MaterialPageRoute(builder: (context) => MyHomePage()),
+          //       );
+          //     },
+          //     child: const Text(
+          //       "Study Buddy",
+          //       style: TextStyle(
+          //         color: Colors.white,
+          //         fontSize: 25.0,
+          //         letterSpacing: 1.1,
+          //       ),
+          //     ),
+          //   ),
+          // ]
+
+          // children: [
+          //   Padding(
+          //     padding: const EdgeInsets.fromLTRB(20.0, 6.0, 15.0, 20.0),
+          //     child: Text(
+          //       data[0],
+          //       style: const TextStyle(
+          //         fontSize: 18.5,
+          //         color: Colors.white,
+          //         fontWeight: FontWeight.w400,
+          //       ),
+          //     ),
+          //   ),
+          // ],
+          // ),
+          const SizedBox(
+            height: 5.0,
+          ),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.0),
             child: Divider(
@@ -239,7 +338,6 @@ class RoomCard extends StatelessWidget {
               color: Color(0xFF696d97),
             ),
           )
-
         ],
       ),
     );

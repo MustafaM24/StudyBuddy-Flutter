@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studybuddy/auth/login.dart';
+import 'package:studybuddy/widgets/homeBar.dart';
 
 class Register extends StatelessWidget {
   Register({Key? key}) : super(key: key);
@@ -14,24 +15,25 @@ class Register extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF3f4156),
-      appBar: AppBar(
-        elevation: 0.0,
-        centerTitle: true,
-        title: const Text(
-          "REGISTER",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 15.0,
-            letterSpacing: 1.1,
-          ),
-        ),
-        backgroundColor: Color(0xFF696d97),
-      ),
+      backgroundColor: Color(0xFF2D2D39),
+      // appBar: AppBar(
+      //   elevation: 0.0,
+      //   centerTitle: true,
+      //   title: const Text(
+      //     "REGISTER",
+      //     style: TextStyle(
+      //       color: Colors.white,
+      //       fontSize: 15.0,
+      //       letterSpacing: 1.1,
+      //     ),
+      //   ),
+      //   backgroundColor: Color(0xFF696d97),
+      // ),
       body: SafeArea(
         child: Center(
           child: ListView(
             children: [
+              const HomeBar(),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Column(
@@ -45,12 +47,12 @@ class Register extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
                         Text(
-                          "Find your study partner",
+                          "REGISTER",
                           style: TextStyle(
-                              color: Color(0xFF6BB8CF),
-                              fontSize: 15.0,
-                              letterSpacing: 1.1,
-                              fontWeight: FontWeight.w500),
+                              color: Colors.white,
+                              fontSize: 25.0,
+                              letterSpacing: 1.1),
+                          // fontWeight: FontWeight.w400),
                         ),
                       ],
                     ),
@@ -76,7 +78,7 @@ class Register extends StatelessWidget {
                         decoration: const InputDecoration(
                           enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color(0xFF696d97), width: 1)),
+                                  color: Color(0xFF6BB8CF), width: 1)),
                         ),
                       ),
                     ),
@@ -100,7 +102,7 @@ class Register extends StatelessWidget {
                         decoration: const InputDecoration(
                           enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color(0xFF696d97), width: 1)),
+                                  color: Color(0xFF6BB8CF), width: 1)),
                         ),
                       ),
                     ),
@@ -124,7 +126,7 @@ class Register extends StatelessWidget {
                         decoration: const InputDecoration(
                           enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color(0xFF696d97), width: 1)),
+                                  color: Color(0xFF6BB8CF), width: 1)),
                         ),
                       ),
                     ),
@@ -148,7 +150,7 @@ class Register extends StatelessWidget {
                         decoration: const InputDecoration(
                           enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color(0xFF696d97), width: 1)),
+                                  color: Color(0xFF6BB8CF), width: 1)),
                         ),
                       ),
                     ),
@@ -172,7 +174,7 @@ class Register extends StatelessWidget {
                         decoration: const InputDecoration(
                           enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color(0xFF696d97), width: 1)),
+                                  color: Color(0xFF6BB8CF), width: 1)),
                         ),
                       ),
                     ),
@@ -188,17 +190,19 @@ class Register extends StatelessWidget {
                               color: const Color(0xFF6BB8CF),
                               width: 1.0,
                             ),
-                            borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(5.0)),
                           ),
                           height: 40,
                           width: 120,
                           child: TextButton.icon(
-                              onPressed: () {
-
-                              },
-                              icon: const Icon(Icons.lock_outline_rounded, color: Color(0xFF3f4156),),
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.lock_outline_rounded,
+                              color: Color(0xFF3f4156),
+                            ),
                             label: const Text(
-                                "Register",
+                              "Register",
                               style: TextStyle(
                                 fontSize: 13.0,
                                 letterSpacing: 1.0,
@@ -226,15 +230,16 @@ class Register extends StatelessWidget {
                             SizedBox(
                               height: 35.0,
                               width: 130.0,
-                              child: TextButton(onPressed: () {
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(builder: (context) => Login())
-                                );
-                              },
+                              child: TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (context) => Login()));
+                                },
                                 child: const Text(
                                   "Log In",
                                   style: TextStyle(
-                                      color: Color(0xFF6BB8CF),
+                                    color: Color(0xFF6BB8CF),
                                     fontSize: 14.0,
                                     letterSpacing: 0.6,
                                   ),
@@ -245,6 +250,7 @@ class Register extends StatelessWidget {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 150.0),
                   ],
                 ),
               ),

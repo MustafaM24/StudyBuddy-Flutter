@@ -4,10 +4,12 @@ import 'package:studybuddy/auth/login.dart';
 import 'package:studybuddy/auth/reg.dart';
 import 'package:studybuddy/room/rooms.dart';
 import 'room/rooms.dart';
+import 'package:studybuddy/widgets/homeBar.dart';
 
 void main() {
   // WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 
@@ -39,23 +41,54 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SafeArea(
         child: Column(
           children: [
-            Container(
-              color: Color(0xFF51546e),
-              height: 57.0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(onPressed: () {}, icon: const Icon(Icons.home)),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => Login()));
-                    },
-                    icon: const Icon(Icons.person_rounded),
-                  ),
-                ],
-              ),
-            ),
+            const HomeBar(),
+            // Container(
+            //   color: Color(0xFF51546e),
+            //   height: 57.0,
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       // IconButton(onPressed: () {}, icon: const Icon(Icons.home)),
+            //       Flexible(
+            //         child: Container(
+            //           width: 200,
+            //           height: 60,
+            //           child: TextButton.icon(
+            //             style: TextButton.styleFrom(
+            //               elevation: 0.0,
+            //               backgroundColor: const Color(0xFF51546e),
+            //             ),
+            //             onPressed: () {
+            //               Navigator.of(context).push(MaterialPageRoute(
+            //                   builder: (context) => HomeBar()));
+            //             },
+            //             icon: const Icon(
+            //               Icons.home,
+            //               color: Color(0xFF51546e),
+            //             ),
+            //             label: const Padding(
+            //               padding: EdgeInsets.fromLTRB(0, 4.0, 3.0, 4.0),
+            //               child: Text(
+            //                 "Study Buddy",
+            //                 style: TextStyle(
+            //                   color: Color.fromARGB(255, 255, 255, 255),
+            //                   fontSize: 25,
+            //                 ),
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //       IconButton(
+            //         onPressed: () {
+            //           Navigator.of(context).push(
+            //               MaterialPageRoute(builder: (context) => Login()));
+            //         },
+            //         icon: const Icon(Icons.person_rounded),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             Padding(
               padding: EdgeInsets.all(15.0),
               child: Column(
@@ -74,12 +107,13 @@ class _MyHomePageState extends State<MyHomePage> {
                               vertical: 11.0, horizontal: 10.0),
                           margin:
                               const EdgeInsets.fromLTRB(7.0, 22.0, 7.0, 1.0),
+                          // create a search bar to search for rooms
                           child: Row(
                             children: const [
                               Icon(Icons.search_rounded, color: Colors.grey),
                               SizedBox(width: 5.0),
                               Text(
-                                "Search for posts",
+                                "Search for posts/rooms",
                                 style: TextStyle(
                                     color: Colors.grey,
                                     fontWeight: FontWeight.w300,
@@ -157,7 +191,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column( 
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: const [
                             Text(
