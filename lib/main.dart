@@ -5,6 +5,7 @@ import 'package:studybuddy/room/rooms.dart';
 import 'package:studybuddy/utils/navigation_service.dart';
 import 'package:studybuddy/utils/network_util.dart';
 import 'package:studybuddy/widgets/homeBar.dart';
+import 'package:studybuddy/widgets/room_card.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
@@ -157,7 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: ListView.builder(
                   itemCount: provider.rooms.length,
                   itemBuilder: (context, i) {
-                    return RoomCardNew(roomId: provider.rooms[i].id);
+                    return RoomCard(roomId: provider.rooms[i].id);
                   },
                 ),
               ),
