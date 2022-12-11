@@ -155,9 +155,9 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 1.0),
                 child: ListView.builder(
-                  itemCount: rooms.length,
+                  itemCount: provider.rooms.length,
                   itemBuilder: (context, i) {
-                    return RoomCard(index: i);
+                    return RoomCardNew(roomId: provider.rooms[i].id);
                   },
                 ),
               ),

@@ -1,8 +1,12 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:studybuddy/main.dart';
+import 'package:studybuddy/models/all_models.dart';
+import 'package:studybuddy/provider/data_provider.dart';
 import 'package:studybuddy/room/room.dart';
+import 'package:studybuddy/widgets/custom_avatar.dart';
 import 'package:studybuddy/widgets/homeBar.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 List rooms = [];
 // Rooms {
@@ -57,10 +61,7 @@ class CreateRoom extends StatelessWidget {
                       children: const [
                         Text(
                           "CREATE STUDY ROOM",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20.0,
-                              letterSpacing: 1.1),
+                          style: TextStyle(color: Colors.white, fontSize: 20.0, letterSpacing: 1.1),
                           // fontWeight: FontWeight.w400),
                         ),
                       ],
@@ -80,14 +81,12 @@ class CreateRoom extends StatelessWidget {
                     const SizedBox(
                       height: 8.5,
                     ),
-                    Container(
+                    SizedBox(
                       height: 45.0,
                       child: TextFormField(
                         controller: name,
                         decoration: const InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color(0xFF71C5DD), width: 1)),
+                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFF71C5DD), width: 1)),
                         ),
                       ),
                     ),
@@ -104,14 +103,12 @@ class CreateRoom extends StatelessWidget {
                     const SizedBox(
                       height: 8.5,
                     ),
-                    Container(
+                    SizedBox(
                       height: 45.0,
                       child: TextFormField(
                         controller: topic,
                         decoration: const InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color(0xFF71C5DD), width: 1)),
+                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFF71C5DD), width: 1)),
                         ),
                       ),
                     ),
@@ -128,14 +125,12 @@ class CreateRoom extends StatelessWidget {
                     const SizedBox(
                       height: 8.5,
                     ),
-                    Container(
+                    SizedBox(
                       height: 100.0,
                       child: TextFormField(
                         controller: about,
                         decoration: const InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color(0xFF71C5DD), width: 1)),
+                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFF71C5DD), width: 1)),
                         ),
                       ),
                     ),
@@ -143,7 +138,7 @@ class CreateRoom extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Container(
+                        SizedBox(
                           height: 42,
                           width: 80.0,
                           child: TextButton(
@@ -157,16 +152,12 @@ class CreateRoom extends StatelessWidget {
                             },
                             child: const Text(
                               "Cancel",
-                              style: TextStyle(
-                                  fontSize: 14.0,
-                                  letterSpacing: 1.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xFFe5e5e5)),
+                              style: TextStyle(fontSize: 14.0, letterSpacing: 1.0, fontWeight: FontWeight.w400, color: Color(0xFFe5e5e5)),
                             ),
                           ),
                         ),
                         const SizedBox(width: 10.0),
-                        Container(
+                        SizedBox(
                           height: 42,
                           width: 120.0,
                           child: TextButton(
@@ -176,26 +167,12 @@ class CreateRoom extends StatelessWidget {
                               elevation: 3.0,
                             ),
                             onPressed: () {
-                              rooms.add([
-                                name.text,
-                                topic.text,
-                                about.text,
-                                "mm05548",
-                                "Mustafa Madraswala",
-                                2
-                              ]);
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const MyHomePage()));
+                              rooms.add([name.text, topic.text, about.text, "mm05548", "Mustafa Madraswala", 2]);
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const MyHomePage()));
                             },
                             child: const Text(
                               "Create Room",
-                              style: TextStyle(
-                                  fontSize: 14.0,
-                                  letterSpacing: 1.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xFF3f4156)),
+                              style: TextStyle(fontSize: 14.0, letterSpacing: 1.0, fontWeight: FontWeight.w400, color: Color(0xFF3f4156)),
                             ),
                           ),
                         ),
@@ -213,14 +190,13 @@ class CreateRoom extends StatelessWidget {
 }
 
 class RoomCard extends StatelessWidget {
-  RoomCard({Key? key, required this.index}) : super(key: key);
+  final int roomId;
 
-  final int index;
+  const RoomCard({super.key, required this.roomId});
 
   @override
   Widget build(BuildContext context) {
-    final List data = rooms[index];
-
+    final Room room = context.read<DataProvider>().rooms.firstWhere((element) => element.id == roomId);
     return Card(
       margin: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 23.0),
       color: const Color(0xFF51546e),
@@ -241,7 +217,7 @@ class RoomCard extends StatelessWidget {
                 width: 9.0,
               ),
               Text(
-                "@${data[3]}",
+                "@${room.host.username}",
                 style: const TextStyle(
                   color: Color(0xFF71C5DD),
                   fontWeight: FontWeight.w400,
@@ -271,16 +247,15 @@ class RoomCard extends StatelessWidget {
                 width: 130.0,
                 child: TextButton(
                   onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => Room(index: index)));
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => RoomScreen(index: 0)));
                   },
                   // child: const Text(
                   //   "Sign Up",
                   // child: const Text(
                   // data[0],
                   child: Text(
-                    "${data[0]}",
-                    style: TextStyle(
+                    room.name,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w400,
                       fontSize: 18.5,
@@ -331,15 +306,104 @@ class RoomCard extends StatelessWidget {
           const SizedBox(
             height: 5.0,
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
-            child: Divider(
-              thickness: 1,
-              color: Color(0xFF696d97),
-            ),
-          )
         ],
       ),
+    );
+  }
+}
+
+class RoomCardNew extends StatelessWidget {
+  final int roomId;
+  const RoomCardNew({super.key, required this.roomId});
+
+  @override
+  Widget build(BuildContext context) {
+    final Room room = context.read<DataProvider>().rooms.firstWhere((element) => element.id == roomId);
+    return Card(
+      color: const Color(0xFF51546e),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: SizedBox(
+          height: 160,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Row(
+                      children: [
+                        CustomAvatar(avatarUrl: room.host.avatar, size: 25.0),
+                        const SizedBox(
+                          width: 9.0,
+                        ),
+                        Text(
+                          "@${room.host.username}",
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Color(0xFF71C5DD),
+                            fontWeight: FontWeight.w400,
+                            letterSpacing: 0.8,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    Text(
+                      timeago.format(DateTime.parse(room.updatedAt)),
+                      softWrap: true,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: Color(0xFFb2bdbd),
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12.0,
+                        letterSpacing: 0.8,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 14.0,
+                ),
+                Text(
+                  room.name == " " ? "Untitled Room" : room.name,
+                  textAlign: TextAlign.start,
+                  softWrap: true,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 18.5,
+                    letterSpacing: 0.6,
+                  ),
+                ),
+                const SizedBox(
+                  height: 5.0,
+                ),
+                Divider(
+                  color: const Color(0xFFb2bdbd),
+                  thickness: 0.5,
+                ),
+                Chip(
+                    label: Text(
+                      room.topic.name == " " ? "No Topic" : room.topic.name,
+                      softWrap: true,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14.0,
+                        letterSpacing: 0.6,
+                      ),
+                    ),
+                    backgroundColor: const Color(0xFF2D2D39)),
+              ],
+            ),
+          )),
     );
   }
 }

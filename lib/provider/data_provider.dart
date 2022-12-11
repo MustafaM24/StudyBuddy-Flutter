@@ -15,10 +15,14 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
     try {
       Response response = await NetworkUtil.instance.get('rooms/');
-      List<Map<String,dynamic>> data = response.data;
-      rooms = response.data.map((e) => Room.fromMap(e)).toList();
+      List<dynamic> roomsMap = response.data as List<dynamic>;
+      rooms = [];
+      for (var roomMap in roomsMap) {
+        rooms.add(Room.fromMap(roomMap as Map<String, dynamic>));
+      }
     } catch (e) {
       print(e);
+      rethrow;
     }
     isLoading = false;
     notifyListeners();

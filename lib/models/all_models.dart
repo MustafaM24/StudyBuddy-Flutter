@@ -40,13 +40,13 @@ class Room {
   factory Room.fromMap(Map<String, dynamic> map) {
     return Room(
       id: map['id'] as int,
-      participants: List<User>.from((map['participants'] as List<int>).map<User>((x) => User.fromMap(x as Map<String,dynamic>),),),
+      participants: List<User>.from((map['participants'] as List<dynamic>).map<User>((x) => User.fromMap(x as Map<String,dynamic>),),),
       host: User.fromMap(map['host'] as Map<String,dynamic>),
       topic: Topic.fromMap(map['topic'] as Map<String,dynamic>),
       name: map['name'] as String,
       description: map['description'] as String,
-      createdAt: map['createdAt'] as String,
-      updatedAt: map['updatedAt'] as String,
+      createdAt: map['created_at'] as String,
+      updatedAt: map['updated_at'] as String,
     );
   }
 

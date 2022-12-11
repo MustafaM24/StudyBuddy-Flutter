@@ -1,27 +1,10 @@
-// class Room {
-//
-//   var name;
-//   var topic;
-//   var about;
-//   var createdBy;
-//   var numJoined;
-//
-//
-//   Room(String name, String topic, String about, String createdBy, int numJoined) {}
-//
-//   String getName() {
-//     return name;
-//   }
-// }
+
 import 'package:flutter/material.dart';
-import 'package:studybuddy/auth/login.dart';
-import 'package:studybuddy/main.dart';
-import 'package:studybuddy/auth/userProfile.dart';
 import 'package:studybuddy/room/rooms.dart';
 import 'package:studybuddy/widgets/homeBar.dart';
 
-class Room extends StatelessWidget {
-  Room({Key? key, required this.index}) : super(key: key);
+class RoomScreen extends StatelessWidget {
+  RoomScreen({Key? key, required this.index}) : super(key: key);
 
   TextEditingController message = TextEditingController();
 
@@ -60,8 +43,7 @@ class Room extends StatelessWidget {
                             color: const Color(0xFF696d97),
                             width: 1.0,
                           ),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(5.0)),
+                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                         ),
                         height: 40,
                         width: 360,
@@ -89,8 +71,7 @@ class Room extends StatelessWidget {
                   Row(
                     children: [
                       Padding(
-                        padding:
-                            const EdgeInsets.fromLTRB(20.0, 6.0, 15.0, 20.0),
+                        padding: const EdgeInsets.fromLTRB(20.0, 6.0, 15.0, 20.0),
                         child: Text(
                           data[0],
                           style: const TextStyle(
@@ -106,8 +87,7 @@ class Room extends StatelessWidget {
                   Row(
                     children: [
                       Padding(
-                        padding:
-                            const EdgeInsets.fromLTRB(20.0, 6.0, 15.0, 20.0),
+                        padding: const EdgeInsets.fromLTRB(20.0, 6.0, 15.0, 20.0),
                         child: Text(
                           "HOSTED BY",
                           style: const TextStyle(
@@ -143,8 +123,7 @@ class Room extends StatelessWidget {
                   Row(
                     children: [
                       Padding(
-                        padding:
-                            const EdgeInsets.fromLTRB(20.0, 6.0, 15.0, 20.0),
+                        padding: const EdgeInsets.fromLTRB(20.0, 6.0, 15.0, 20.0),
                         child: Text(
                           data[2],
                           style: const TextStyle(
@@ -167,8 +146,7 @@ class Room extends StatelessWidget {
                             color: const Color(0xFF696d97),
                             width: 1.0,
                           ),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(5.0)),
+                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                         ),
                         height: 25,
                         width: 90,
@@ -201,8 +179,7 @@ class Room extends StatelessWidget {
                             color: const Color(0xFF51546E),
                             width: 1.0,
                           ),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(5.0)),
+                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                         ),
                         height: 25,
                         width: 90,
@@ -248,8 +225,7 @@ class Room extends StatelessWidget {
                           color: const Color(0xFF2D2D39),
                           width: 1.0,
                         ),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(5.0)),
+                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                       ),
                       height: 500,
                       width: 340,
@@ -298,9 +274,7 @@ class Room extends StatelessWidget {
                 decoration: const InputDecoration(
                   hoverColor: Colors.white,
                   hintText: "Write something about yourself",
-                  enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color(0xFF6BB8CF), width: 1)),
+                  enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFF6BB8CF), width: 1)),
                   // enabledBorder: OutlineInputBorder(
                   //     borderSide: BorderSide(
                   //         color: Color(0xFF6BB8CF), width: 1)),
