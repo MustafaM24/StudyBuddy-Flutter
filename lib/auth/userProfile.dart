@@ -1,14 +1,11 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:studybuddy/utils/utils.dart';
 // import widgets package
 // import 'package:StatefulWidgetBuilder/widgets.dart';
 // import 'package:src/painting/image_provider.dart';
 import 'package:flutter/widgets.dart';
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:studybuddy/auth/login.dart';
 import 'package:studybuddy/auth/reg.dart';
@@ -49,20 +46,20 @@ class _ProfileScreenState extends State<Profile> {
   //   });
   // }
 
-  selectImage() async {
-    Uint8List im = await pickImage(ImageSource.gallery);
-    // set state because we need to display the image we selected on the circle avatar
-    // use setState() to update the state of the widget
-    // update the state of the widget
-    // StateSetter setState;
-    // setState(() {
-    //   _image = im;
-    // });
-    // _image = im;
-    setState(() {
-      _image = im;
-    });
-  }
+  // selectImage() async {
+  //   Uint8List im = await pickImage(ImageSource.gallery);
+  //   // set state because we need to display the image we selected on the circle avatar
+  //   // use setState() to update the state of the widget
+  //   // update the state of the widget
+  //   // StateSetter setState;
+  //   // setState(() {
+  //   //   _image = im;
+  //   // });
+  //   // _image = im;
+  //   setState(() {
+  //     _image = im;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +127,7 @@ class _ProfileScreenState extends State<Profile> {
                           bottom: -10,
                           left: 80,
                           child: IconButton(
-                            onPressed: selectImage,
+                            onPressed: ()=>null,
                             icon: const Icon(Icons.add_a_photo),
                           ),
                         )

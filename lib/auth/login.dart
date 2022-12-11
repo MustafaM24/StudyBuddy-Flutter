@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studybuddy/auth/reg.dart';
 import 'package:studybuddy/auth/userProfile.dart';
-import 'package:studybuddy/room/room.dart';
 import 'package:studybuddy/widgets/homeBar.dart';
 
 class Login extends StatelessWidget {
@@ -15,28 +13,11 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF2D2D39),
-      // body: SafeArea(
-      //   child: Column(
-      //     children: [
-      //       const HomeBar(),
-      // appBar: AppBar(
-      //   elevation: 0.0,
-      //   centerTitle: true,
-      //   title: const Text(
-      //     "LOGIN",
-      //     style: TextStyle(
-      //       color: Colors.white,
-      //       fontSize: 15.0,
-      //       letterSpacing: 1.1,
-      //     ),
-      //   ),
-      //   backgroundColor: Color(0xFF696d97),
-      // ),
       body: SafeArea(
         child: Center(
           child: ListView(
             children: [
-              const HomeBar(),
+              const HomeBar(showLeading: false),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Column(
@@ -51,10 +32,7 @@ class Login extends StatelessWidget {
                       children: const [
                         Text(
                           "LOGIN",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 25.0,
-                              letterSpacing: 1.1),
+                          style: TextStyle(color: Colors.white, fontSize: 25.0, letterSpacing: 1.1),
                           // fontWeight: FontWeight.w400),
                         ),
                       ],
@@ -79,9 +57,7 @@ class Login extends StatelessWidget {
                       child: TextFormField(
                         controller: username,
                         decoration: const InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color(0xFF6BB8CF), width: 1)),
+                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFF6BB8CF), width: 1)),
                         ),
                       ),
                     ),
@@ -103,9 +79,7 @@ class Login extends StatelessWidget {
                       child: TextFormField(
                         controller: password,
                         decoration: const InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color(0xFF6BB8CF), width: 1)),
+                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFF6BB8CF), width: 1)),
                         ),
                       ),
                     ),
@@ -121,8 +95,7 @@ class Login extends StatelessWidget {
                               color: const Color(0xFF6BB8CF),
                               width: 1.0,
                             ),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(5.0)),
+                            borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                           ),
                           height: 40,
                           width: 120,
@@ -163,9 +136,7 @@ class Login extends StatelessWidget {
                               width: 130.0,
                               child: TextButton(
                                 onPressed: () {
-                                  Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                          builder: (context) => Register()));
+                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Register()));
                                 },
                                 child: const Text(
                                   "Sign Up",
@@ -199,9 +170,7 @@ class Login extends StatelessWidget {
                               width: 130.0,
                               child: TextButton(
                                 onPressed: () {
-                                  Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                          builder: (context) => Profile()));
+                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Profile()));
                                 },
                                 child: const Text(
                                   "Profile",

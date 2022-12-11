@@ -1,22 +1,13 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:studybuddy/auth/login.dart';
-import 'package:studybuddy/auth/reg.dart';
 import 'package:studybuddy/room/rooms.dart';
-import 'room/rooms.dart';
 import 'package:studybuddy/widgets/homeBar.dart';
 
 void main() {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
-
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -42,53 +33,6 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: [
             const HomeBar(),
-            // Container(
-            //   color: Color(0xFF51546e),
-            //   height: 57.0,
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //       // IconButton(onPressed: () {}, icon: const Icon(Icons.home)),
-            //       Flexible(
-            //         child: Container(
-            //           width: 200,
-            //           height: 60,
-            //           child: TextButton.icon(
-            //             style: TextButton.styleFrom(
-            //               elevation: 0.0,
-            //               backgroundColor: const Color(0xFF51546e),
-            //             ),
-            //             onPressed: () {
-            //               Navigator.of(context).push(MaterialPageRoute(
-            //                   builder: (context) => HomeBar()));
-            //             },
-            //             icon: const Icon(
-            //               Icons.home,
-            //               color: Color(0xFF51546e),
-            //             ),
-            //             label: const Padding(
-            //               padding: EdgeInsets.fromLTRB(0, 4.0, 3.0, 4.0),
-            //               child: Text(
-            //                 "Study Buddy",
-            //                 style: TextStyle(
-            //                   color: Color.fromARGB(255, 255, 255, 255),
-            //                   fontSize: 25,
-            //                 ),
-            //               ),
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //       IconButton(
-            //         onPressed: () {
-            //           Navigator.of(context).push(
-            //               MaterialPageRoute(builder: (context) => Login()));
-            //         },
-            //         icon: const Icon(Icons.person_rounded),
-            //       ),
-            //     ],
-            //   ),
-            // ),
             Padding(
               padding: EdgeInsets.all(15.0),
               child: Column(
@@ -128,63 +72,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   const SizedBox(
                     height: 25,
                   ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     Flexible(
-                  //       child: Container(
-                  //         width: 140.0,
-                  //         height: 34.0,
-                  //         decoration: BoxDecoration(
-                  //           color: const Color(0xFF2D2D39),
-                  //           shape: BoxShape.rectangle,
-                  //           border: Border.all(
-                  //             color: const Color(0xFF6BB8CF),
-                  //             width: 1.0,
-                  //           ),
-                  //           borderRadius:
-                  //               const BorderRadius.all(Radius.circular(20)),
-                  //         ),
-                  //         child: TextButton(
-                  //             onPressed: () {},
-                  //             child: const Text(
-                  //               "Browse Topic",
-                  //               style: TextStyle(
-                  //                 color: Color(0xFF6BB8CF),
-                  //                 fontSize: 12.5,
-                  //                 letterSpacing: 1.0,
-                  //               ),
-                  //             )),
-                  //       ),
-                  //     ),
-                  //     const SizedBox(width: 8.0),
-                  //     Flexible(
-                  //       child: Container(
-                  //         width: 140.0,
-                  //         height: 34.0,
-                  //         decoration: BoxDecoration(
-                  //           color: const Color(0xFF2D2D39),
-                  //           shape: BoxShape.rectangle,
-                  //           border: Border.all(
-                  //             color: const Color(0xFF6BB8CF),
-                  //             width: 1.0,
-                  //           ),
-                  //           borderRadius:
-                  //               const BorderRadius.all(Radius.circular(20)),
-                  //         ),
-                  //         child: TextButton(
-                  //             onPressed: () {},
-                  //             child: const Text(
-                  //               "Recent Activity",
-                  //               style: TextStyle(
-                  //                   color: Color(0xFF6BB8CF),
-                  //                   fontSize: 12.5,
-                  //                   letterSpacing: 1.0),
-                  //             )),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
                   const SizedBox(height: 30.0),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 7.0),
