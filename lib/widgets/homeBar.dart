@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:studybuddy/auth/login.dart';
 import 'package:studybuddy/main.dart';
+import 'package:studybuddy/models/all_models.dart';
+import 'package:studybuddy/provider/user_provider.dart';
+import 'package:studybuddy/utils/navigation_service.dart';
+import 'package:studybuddy/widgets/custom_avatar.dart';
 
 // cop app bar widget from main.dart
 class HomeBar extends StatelessWidget implements PreferredSizeWidget {
@@ -13,6 +18,7 @@ class HomeBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    User? currentUser = Provider.of<UserProvider>(context).currentUser;
     return AppBar(
       centerTitle: false,
       elevation: 0.0,
@@ -35,20 +41,31 @@ class HomeBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
       ),
-      actions: [
-        if (showLeading)
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => Login()));
-            },
-            icon: const Icon(Icons.person_rounded),
-          ),
-      ],
+      actions: getActions(currentUser),
     );
   }
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+
+  List<Widget> getActions(User? user) {
+    if (user != null) {
+      return [
+        TextButton(
+            onPressed: () => NavigationService.navigatorKey.currentContext!.read<UserProvider>().logout(), child: const Text('Logout', style: TextStyle(color: Colors.white))),
+        CustomAvatar(avatarUrl: user.avatar, size: 35),
+      ];
+    } else {
+      return [
+        IconButton(
+          onPressed: () {
+            Navigator.of(NavigationService.navigatorKey.currentContext!).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
+          },
+          icon: const Icon(Icons.person_rounded),
+        ),
+      ];
+    }
+  }
 }
 
 
