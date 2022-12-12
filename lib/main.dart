@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:studybuddy/models/all_models.dart';
 import 'package:studybuddy/provider/data_provider.dart';
+import 'package:studybuddy/room/room.dart';
 import 'package:studybuddy/room/rooms.dart';
 import 'package:studybuddy/utils/navigation_service.dart';
-import 'package:studybuddy/utils/network_util.dart';
 import 'package:studybuddy/widgets/homeBar.dart';
 import 'package:studybuddy/widgets/room_card.dart';
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: NavigationService.navigatorKey,
-      title: 'Flutter Demo',
+      title: 'Studdy Buddy',
       home: const MyHomePage(),
     );
   }
@@ -158,7 +159,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: ListView.builder(
                   itemCount: provider.rooms.length,
                   itemBuilder: (context, i) {
-                    return RoomCard(roomId: provider.rooms[i].id);
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => RoomScreen(index: provider.rooms[i].id)),
+                        );
+                      },
+                      child: RoomCard(roomId: provider.rooms[i].id));
                   },
                 ),
               ),

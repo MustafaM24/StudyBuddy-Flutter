@@ -1,6 +1,10 @@
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:studybuddy/models/all_models.dart';
+import 'package:studybuddy/provider/data_provider.dart';
 import 'package:studybuddy/room/rooms.dart';
+import 'package:studybuddy/widgets/chat_message.dart';
 import 'package:studybuddy/widgets/homeBar.dart';
 
 class RoomScreen extends StatelessWidget {
@@ -10,281 +14,227 @@ class RoomScreen extends StatelessWidget {
 
   final int index;
 
+  // Future<List<Message>> getMessages () {
+  //   return null;
+  // }
+
   @override
   Widget build(BuildContext context) {
-    List data = rooms[index];
+    // List data = rooms[index];
+    final Room room = context.read<DataProvider>().rooms.firstWhere((element) => element.id == index);
+    
     return Scaffold(
-      backgroundColor: Color(0xFF51546E),
+      backgroundColor: const Color(0xFF51546E),
       body: SafeArea(
         child: Center(
-          child: ListView(children: [
-            const HomeBar(),
-            const SizedBox(
-              height: 35.0,
-              width: 300.0,
-              child: DecoratedBox(
-                decoration: BoxDecoration(color: Color(0xFF2D2D39)),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 0.0),
-              child: Column(
-                // mainAxisAlignment: MainAxisAlignment.start,
-                // crossAxisAlignment: CrossAxisAlignment.start,
+          child: Stack(
+            children: [
+              
+              ListView(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF696d97),
-                          shape: BoxShape.rectangle,
-                          border: Border.all(
+                const HomeBar(),
+                const SizedBox(
+                  // height: MediaQuery.of(context).size.height * 0.02,
+                  width: double.infinity,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(color: Color(0xFF2D2D39)),
+                  ),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 20,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
                             color: const Color(0xFF696d97),
-                            width: 1.0,
-                          ),
-                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                        ),
-                        height: 40,
-                        width: 360,
-                        // margin: const EdgeInsets.symmetric(horizontal: 20.0),
-                        // set margin to left side
-                        child: TextButton.icon(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.meeting_room,
-                            color: Colors.white,
-                          ),
-                          label: const Text(
-                            "STUDY ROOM",
-                            style: TextStyle(
-                              fontSize: 15.0,
-                              letterSpacing: 1.0,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  // add a square box to keep in the background with color and i can add rows in it
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(20.0, 6.0, 15.0, 20.0),
-                        child: Text(
-                          data[0],
-                          style: const TextStyle(
-                            fontSize: 25.0,
-                            color: Color(0xFF6BB8CF),
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  // add text left side
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(20.0, 6.0, 15.0, 20.0),
-                        child: Text(
-                          "HOSTED BY",
-                          style: const TextStyle(
-                            fontSize: 13.0,
-                            color: Color(0xFFb2bdbd),
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const SizedBox(width: 20.0),
-                      const Icon(
-                        Icons.person_rounded,
-                        color: Color(0xFFb2bdbd),
-                        size: 25.0,
-                      ),
-                      const SizedBox(
-                        width: 9.0,
-                      ),
-                      Text(
-                        "@${data[3]}",
-                        style: const TextStyle(
-                          color: Color(0xFF71C5DD),
-                          fontWeight: FontWeight.w400,
-                          letterSpacing: 0.8,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(20.0, 6.0, 15.0, 20.0),
-                        child: Text(
-                          data[2],
-                          style: const TextStyle(
-                            fontSize: 15.0,
-                            color: Color(0xFFb2bdbd),
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF696d97),
-                          shape: BoxShape.rectangle,
-                          border: Border.all(
-                            color: const Color(0xFF696d97),
-                            width: 1.0,
-                          ),
-                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                        ),
-                        height: 25,
-                        width: 90,
-                        margin: const EdgeInsets.symmetric(horizontal: 20.0),
-                        // center the text
-                        child: Center(
-                          child: Text(
-                            "${data[1]}",
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              letterSpacing: 1.0,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  // add text box for topic in the middle center aligned
-                  const SizedBox(height: 10.0),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF51546E),
-                          shape: BoxShape.rectangle,
-                          border: Border.all(
-                            color: const Color(0xFF51546E),
-                            width: 1.0,
-                          ),
-                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                        ),
-                        height: 25,
-                        width: 90,
-                        margin: const EdgeInsets.symmetric(horizontal: 20.0),
-                        // center the text
-                        child: Center(
-                          child: Text(
-                            "CHAT",
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              letterSpacing: 1.0,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  // Row(
-                  //   children: [
-                  //     Padding(
-                  //         padding:
-                  //             const EdgeInsets.fromLTRB(20.0, 6.0, 15.0, 20.0),
-                  //         child: Center(
-                  //           child: Text(
-                  //             "MEMBERS",
-                  //             style: const TextStyle(
-                  //               fontSize: 13.0,
-                  //               color: Color(0xFFb2bdbd),
-                  //               fontWeight: FontWeight.w400,
-                  //             ),
-                  //           ),
-                  //         )),
-                  //   ],
-                  // ),
-                  // const SizedBox(height: 35.0),
-                  Container(
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF2D2D39),
-                        shape: BoxShape.rectangle,
-                        border: Border.all(
-                          color: const Color(0xFF2D2D39),
-                          width: 1.0,
-                        ),
-                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                      ),
-                      height: 500,
-                      width: 340,
-                      margin: const EdgeInsets.symmetric(horizontal: 0.0),
-                      // center the text on top of container
-                      child: Column(children: [
-                        const SizedBox(height: 20.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const SizedBox(width: 20.0),
-                            // vertical line
-                            Container(
-                              height: 30,
-                              width: 2,
+                            shape: BoxShape.rectangle,
+                            border: Border.all(
                               color: const Color(0xFF696d97),
+                              width: 1.0,
                             ),
-                            const SizedBox(width: 20.0),
-                            const Icon(
-                              Icons.person_rounded,
-                              color: Color(0xFFb2bdbd),
-                              size: 25.0,
+                            borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                          ),
+                          height: 40,
+                          width: 360,
+                          child: TextButton.icon(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.meeting_room,
+                              color: Colors.white,
                             ),
-                            const SizedBox(
-                              width: 9.0,
-                            ),
-                            Text(
-                              "@${data[3]}",
+                            label:  Text(
+                              room.name,
                               style: const TextStyle(
-                                color: Color(0xFF71C5DD),
-                                fontWeight: FontWeight.w400,
-                                letterSpacing: 0.8,
+                                fontSize: 15.0,
+                                letterSpacing: 1.0,
+                                color: Colors.white,
                               ),
                             ),
-                          ],
+                          ),
                         ),
-                        //
-                      ]))
-                ],
-              ),
-            ),
-            Container(
-              height: 45.0,
-              child: TextFormField(
-                controller: message,
-                decoration: const InputDecoration(
-                  hoverColor: Colors.white,
-                  hintText: "Write something about yourself",
-                  enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFF6BB8CF), width: 1)),
-                  // enabledBorder: OutlineInputBorder(
-                  //     borderSide: BorderSide(
-                  //         color: Color(0xFF6BB8CF), width: 1)),
+                      ],
+                    ),
+                    // add a square box to keep in the background with color and i can add rows in it
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(20.0, 6.0, 15.0, 20.0),
+                          child: Text(
+                            room.description,
+                            style: const TextStyle(
+                              fontSize: 16.0,
+                              color: Color(0xFF6BB8CF),
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    // add text left side
+                    Row(
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(20.0, 6.0, 15.0, 20.0),
+                          child: Text(
+                            "HOSTED BY",
+                            style:  TextStyle(
+                              fontSize: 13.0,
+                              color: Color(0xFFb2bdbd),
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        const SizedBox(width: 15.0),
+                        const Icon(
+                          Icons.person_rounded,
+                          color: Color(0xFFb2bdbd),
+                          size: 25.0,
+                        ),
+                        const SizedBox(
+                          width: 9.0,
+                        ),
+                        Text(
+                          "@${room.host.username}",
+                          style: const TextStyle(
+                            color: Color(0xFF71C5DD),
+                            fontWeight: FontWeight.w400,
+                            letterSpacing: 0.8,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20,),
+                    Row(
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(20.0, 6.0, 15.0, 20.0),
+                          child: Text(
+                            "TOPICS",
+                            style:  TextStyle(
+                              fontSize: 13.0,
+                              color: Color(0xFFb2bdbd),
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF696d97),
+                            shape: BoxShape.rectangle,
+                            border: Border.all(
+                              color: const Color(0xFF696d97),
+                              width: 1.0,
+                            ),
+                            borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                          ),
+                          height: 25,
+                          width: 90,
+                          margin: const EdgeInsets.symmetric(horizontal: 20.0),
+                          // center the text
+                          child: Center(
+                            child: Text(
+                              room.topic.name,
+                              style: const TextStyle(
+                                fontSize: 15.0,
+                                letterSpacing: 1.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    // add text box for topic in the middle center aligned
+                    const SizedBox(height: 30.0),
+                    Container(
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF2D2D39),
+                          shape: BoxShape.rectangle,
+                          border: Border.all(
+                            color: const Color(0xFF2D2D39),
+                            width: 1.0,
+                          ),
+                          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                        ),
+                        height: 500,
+                        width: 360,
+                        margin: const EdgeInsets.symmetric(horizontal: 0.0),
+                        // center the text on top of container
+                        child: ChatMessage(text: "Sample",)
                 ),
+                // add text input field
+              ]),
+        ]),
+        Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              padding: const EdgeInsets.only(left: 10,bottom: 10,top: 10),
+              height: 60,
+              width: 360,
+              color: const Color.fromARGB(255, 19, 19, 24),
+              child: Row(
+                children: <Widget>[
+                  const SizedBox(width: 15,),
+                  const Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: "Write message...",
+                        hintStyle: TextStyle(color: Color.fromARGB(137, 207, 207, 207)),
+                        border: InputBorder.none
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 15,),
+                  FloatingActionButton(
+                    onPressed: (){},
+                    child: Icon(Icons.send,color: Colors.white,size: 18,),
+                    backgroundColor: const Color(0xFF696d97),
+                    elevation: 0,
+                  ),
+                ],
+                
               ),
             ),
-            // add text input field
-          ]),
-        ),
+          ),
+            ],
+          ),
       ),
-    );
+    ));
   }
 }
