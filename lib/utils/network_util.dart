@@ -29,7 +29,11 @@ class NetworkUtil {
 
   Future<Response> post(String path, {required Map<String, dynamic> data, String? accessToken}) async {
     attachAccessToken(accessToken);
-    path += '?format=json';
+    _dio.options.headers['Content-Type'] = 'application/json';
+    _dio.options.headers['accept'] = 'application/json';
+    _dio.options.headers['X-CSRFToken'] = 'pIWlIaGiB7mLb2bq8LQY93WJKE4pr2BlMxqPV13DgK0ryQhcUTDmKwV6K0aSLTOj';
+   
+    //path += '?format=json';
     final Response response = await _dio.post(path, data: data);
     return response;
   }
