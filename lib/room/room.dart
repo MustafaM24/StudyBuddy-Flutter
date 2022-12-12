@@ -9,17 +9,22 @@ import 'package:studybuddy/utils/network_util.dart';
 import 'package:studybuddy/widgets/chat_message.dart';
 import 'package:studybuddy/widgets/homeBar.dart';
 
-class RoomScreen extends StatelessWidget {
+class RoomScreen extends StatefulWidget {
   RoomScreen({Key? key, required this.index}) : super(key: key);
 
-  TextEditingController message = TextEditingController();
-
   final int index;
+
+  @override
+  State<RoomScreen> createState() => _RoomScreenState();
+}
+
+class _RoomScreenState extends State<RoomScreen> {
+  TextEditingController message = TextEditingController();
 
   Future<List<Message>> getMessages() async {
     List<Message> messages = [];
     try {
-      Response response = await NetworkUtil.instance.get('rooms/$index/messages');
+      Response response = await NetworkUtil.instance.get('rooms/${widget.index}/messages');
       List<dynamic> messagesMap = response.data as List<dynamic>;
       // print(messagesMap);
       rooms = [];
@@ -37,7 +42,7 @@ class RoomScreen extends StatelessWidget {
     try {
       // make a post request to login
       Response response = await NetworkUtil.instance.post(
-        'rooms/$index/messages/',
+        'rooms/${widget.index}/messages/',
         data: {
           'message': message,
           'user': {"username": "user"},
@@ -55,8 +60,9 @@ class RoomScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // List data = rooms[index];
-    final Room room = context.read<RoomProvider>().rooms.firstWhere((element) => element.id == index);
+    final Room room = context.read<RoomProvider>().rooms.firstWhere((element) => element.id == widget.index);
     TextEditingController newMessageController = TextEditingController();
+    FocusNode messageFocusNode = FocusNode();
 
     return Scaffold(
         backgroundColor: const Color(0xFF51546E),
@@ -289,6 +295,10 @@ class RoomScreen extends StatelessWidget {
                         Expanded(
                           child: TextField(
                             controller: newMessageController,
+                            focusNode: messageFocusNode,
+                            style: TextStyle(
+                            color: Colors.white
+                          ),
                             decoration:
                                 const InputDecoration(hintText: "Write message...", hintStyle: TextStyle(color: Color.fromARGB(137, 207, 207, 207)), border: InputBorder.none),
                           ),
@@ -301,6 +311,10 @@ class RoomScreen extends StatelessWidget {
                             if (newMessageController.text.trim() != "") {
                               User current = context.read<UserProvider>().currentUser!;
                               await postMessage(newMessageController.text, current);
+                              setState(() {
+                                newMessageController.clear();
+                                messageFocusNode.unfocus();
+                              });
                             }
                           },
                           child: Icon(

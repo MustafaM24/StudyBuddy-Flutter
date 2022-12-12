@@ -13,6 +13,8 @@ class RoomCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final Room room = context.read<RoomProvider>().rooms.firstWhere((element) => element.id == roomId);
     return Card(
+      elevation: 15,
+      shadowColor: Color.fromARGB(255, 0, 0, 0),
       color: const Color(0xFF51546e),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),

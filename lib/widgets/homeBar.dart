@@ -22,14 +22,14 @@ class HomeBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       centerTitle: false,
       elevation: 0.0,
-      backgroundColor: Color(0xFF51546E),
+      backgroundColor: const Color(0xFF51546E),
       automaticallyImplyLeading: false,
       leadingWidth: MediaQuery.of(context).size.width * 0.5,
       title: TextButton(
         onPressed: () {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => MyHomePage()),
+            MaterialPageRoute(builder: (context) => const MyHomePage()),
           );
         },
         child: const Text(
@@ -53,7 +53,10 @@ class HomeBar extends StatelessWidget implements PreferredSizeWidget {
       return [
         TextButton(
             onPressed: () => NavigationService.navigatorKey.currentContext!.read<UserProvider>().logout(), child: const Text('Logout', style: TextStyle(color: Colors.white))),
-        CustomAvatar(avatarUrl: user.avatar, size: 35),
+        Padding(
+          padding: const EdgeInsets.only(right: 17.0),
+          child: CustomAvatar(avatarUrl: user.avatar, size: 35),
+        ),
       ];
     } else {
       return [

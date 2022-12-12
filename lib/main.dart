@@ -125,23 +125,39 @@ class _MyHomePageState extends State<MyHomePage> {
                             children: [
                               Expanded(
                                 child: Container(
+                                  height: 40,
+                                  alignment: Alignment.center,
                                   decoration: const BoxDecoration(
                                     color: Color(0xFF50546F),
                                     shape: BoxShape.rectangle,
                                     borderRadius: BorderRadius.all(Radius.circular(5)),
+                                    boxShadow: [BoxShadow(color: Color(0xFF71C5DD), 
+                                    offset: Offset(0, 0), 
+                                    spreadRadius: 1, 
+                                    blurRadius: 6)]
                                   ),
-                                  padding: const EdgeInsets.symmetric(vertical: 11.0, horizontal: 10.0),
+                                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
                                   margin: const EdgeInsets.fromLTRB(7.0, 22.0, 7.0, 1.0),
                                   // create a search bar to search for rooms
-                                  child: Row(
-                                    children: const [
-                                      Icon(Icons.search_rounded, color: Colors.grey),
-                                      SizedBox(width: 5.0),
-                                      Text(
-                                        "Search for posts/rooms",
-                                        style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w300, letterSpacing: 1.0),
+                                  child: const TextField(
+                                          textAlignVertical: TextAlignVertical.center,
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                          decoration: InputDecoration(
+                                            // contentPadding: EdgeInsets.only(top: 0.02),
+                                            border: InputBorder.none,
+                                            hintStyle: TextStyle(
+                                              color: Color.fromARGB(255, 205, 205, 205)
+                                            ),
+                                            hintText: "Search for rooms",
+                                            focusColor: Colors.transparent,
+                                            icon: Icon(
+                                        Icons.search,
+                                        color:  Color(0xFF71C5DD),
                                       ),
-                                    ],
+                                          ),
+                                      
                                   ),
                                 ),
                               ),
@@ -150,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           const SizedBox(
                             height: 25,
                           ),
-                          const SizedBox(height: 30.0),
+                          const SizedBox(height: 10.0),
                           Container(
                             margin: const EdgeInsets.symmetric(horizontal: 7.0),
                             child: Row(
@@ -158,70 +174,71 @@ class _MyHomePageState extends State<MyHomePage> {
                               children: [
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Text(
-                                      "STUDY ROOM",
+                                  children: const [
+                                     Text(
+                                      "STUDY ROOMS",
                                       style: TextStyle(
                                         letterSpacing: 1.0,
                                         fontSize: 14.5,
                                         color: Colors.white,
                                       ),
                                     ),
-                                    const SizedBox(height: 5.0),
-                                    Text(
+                                    // const SizedBox(height: 5.0),
+                                    
+                                  ],
+                                ),
+                                Text(
                                       "${provider.rooms.length} Room(s) available",
                                       style: const TextStyle(letterSpacing: 1.0, fontSize: 12.0, color: Color(0xFF696d97), fontWeight: FontWeight.w500),
                                     ),
-                                  ],
-                                ),
-                                Flexible(
-                                  child: Container(
-                                    width: 140,
-                                    height: 40,
-                                    child: TextButton.icon(
-                                      style: TextButton.styleFrom(
-                                        elevation: 3.0,
-                                        backgroundColor: const Color(0xFF71C5DD),
-                                      ),
-                                      onPressed: () {
-                                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => CreateRoom()));
-                                      },
-                                      icon: const Icon(
-                                        Icons.add,
-                                        color: Color(0xFF3f4156),
-                                      ),
-                                      label: const Padding(
-                                        padding: EdgeInsets.fromLTRB(0, 4.0, 3.0, 4.0),
-                                        child: Text(
-                                          "Create Room",
-                                          style: TextStyle(
-                                            color: Color(0xFF3f4156),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                                // Flexible(
+                                //   child: Container(
+                                //     width: 140,
+                                //     height: 40,
+                                //     child: TextButton.icon(
+                                //       style: TextButton.styleFrom(
+                                //         elevation: 3.0,
+                                //         backgroundColor: const Color(0xFF71C5DD),
+                                //       ),
+                                //       onPressed: () {
+                                //         Navigator.of(context).push(MaterialPageRoute(builder: (context) => CreateRoom()));
+                                //       },
+                                //       icon: const Icon(
+                                //         Icons.add,
+                                //         color: Color(0xFF3f4156),
+                                //       ),
+                                //       label: const Padding(
+                                //         padding: EdgeInsets.fromLTRB(0, 4.0, 3.0, 4.0),
+                                //         child: Text(
+                                //           "Create Room",
+                                //           style: TextStyle(
+                                //             color: Color(0xFF3f4156),
+                                //           ),
+                                //         ),
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 20.0),
+                    const SizedBox(height: 10.0),
                     Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 1.0),
-                        child: ListView.builder(
-                          itemCount: provider.rooms.length,
-                          itemBuilder: (context, i) {
-                            return InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => RoomScreen(index: provider.rooms[i].id)));
-                              },
-                              child: RoomCard(roomId: provider.rooms[i].id));
-                          },
-                        ),
+                      child: ListView.builder(
+                        itemCount: provider.rooms.length,
+                        itemBuilder: (context, i) {
+                          return InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => RoomScreen(index: provider.rooms[i].id)));
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 12),
+                              child: RoomCard(roomId: provider.rooms[i].id),
+                            ));
+                        },
                       ),
                     ),
                   ],
