@@ -296,6 +296,9 @@ class RoomScreen extends StatelessWidget {
                   Expanded(
                     child: TextField(
                       controller: newMessageController,
+                      style: TextStyle(
+                            color: Colors.white
+                          ),
                       decoration: const InputDecoration(
                         hintText: "Write message...",
                         hintStyle: TextStyle(color: Color.fromARGB(137, 207, 207, 207)),

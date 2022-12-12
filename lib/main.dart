@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: NavigationService.navigatorKey,
+      debugShowCheckedModeBanner: false,
       title: 'Studdy Buddy',
       home: const SpashScreen(),
     );
