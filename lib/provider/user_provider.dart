@@ -74,6 +74,7 @@ class UserProvider extends ChangeNotifier {
   Future<void> _getUser(String accessToken) async {
     Response response = await NetworkUtil.instance.get('user', accessToken: accessToken);
     currentUser = User.fromMap(response.data as Map<String, dynamic>);
+    currentUser!.token = accessToken;
   }
 
   Future<String?> _getAccessTokenFromLocal() async {

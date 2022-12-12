@@ -213,7 +213,7 @@ class Message {
 
   factory Message.fromMap(Map<String, dynamic> map) {
     return Message(
-      id: map['id'] as String,
+      id: map['id'].toString(),
       message: map['message'] as String,
       createdAt: map['created_at'] as String,
       user: User.fromMap(map['user'] as Map<String, dynamic>),

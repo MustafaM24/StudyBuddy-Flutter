@@ -214,7 +214,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: ListView.builder(
                           itemCount: provider.rooms.length,
                           itemBuilder: (context, i) {
-                            return RoomCard(roomId: provider.rooms[i].id);
+                            return InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => RoomScreen(index: provider.rooms[i].id)));
+                              },
+                              child: RoomCard(roomId: provider.rooms[i].id));
                           },
                         ),
                       ),
