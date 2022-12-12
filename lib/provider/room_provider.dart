@@ -4,10 +4,25 @@ import 'package:studybuddy/models/all_models.dart';
 import 'package:studybuddy/utils/network_util.dart';
 
 class RoomProvider extends ChangeNotifier {
-  List<Room> rooms;
+  List<Room> _rooms = [];
   bool isLoading;
+  String filter = "";
 
-  RoomProvider({this.rooms = const [], this.isLoading = true});
+  List<Room> get rooms => filter == ""
+      ? _rooms
+      : _rooms
+          .where((Room room) =>
+              room.name.toLowerCase().contains(filter.toLowerCase()) ||
+              room.host.username.toLowerCase().contains(filter.toLowerCase()) ||
+              room.topic.name.toLowerCase().contains(filter.toLowerCase()))
+          .toList();
+
+  RoomProvider({this.isLoading = true});
+
+  void setFilter(String filter) {
+    this.filter = filter;
+    notifyListeners();
+  }
 
   void getRooms() async {
     isLoading = true;
@@ -15,9 +30,9 @@ class RoomProvider extends ChangeNotifier {
     try {
       Response response = await NetworkUtil.instance.get('rooms/');
       List<dynamic> roomsMap = response.data as List<dynamic>;
-      rooms = [];
+      _rooms = [];
       for (var roomMap in roomsMap) {
-        rooms.add(Room.fromMap(roomMap as Map<String, dynamic>));
+        _rooms.add(Room.fromMap(roomMap as Map<String, dynamic>));
       }
     } catch (e) {
       print(e);

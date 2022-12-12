@@ -10,21 +10,31 @@ import 'package:studybuddy/widgets/custom_avatar.dart';
 
 // cop app bar widget from main.dart
 class HomeBar extends StatelessWidget implements PreferredSizeWidget {
-  final bool showLeading;
+  final bool home;
   const HomeBar({
     Key? key,
-    this.showLeading = true,
+    this.home = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     User? currentUser = Provider.of<UserProvider>(context).currentUser;
     return AppBar(
-      centerTitle: false,
+      centerTitle: true,
       elevation: 0.0,
       backgroundColor: const Color(0xFF51546E),
       automaticallyImplyLeading: false,
-      leadingWidth: MediaQuery.of(context).size.width * 0.5,
+      leading: home
+          ? IconButton(
+              onPressed: () {
+                Navigator.of(NavigationService.navigatorKey.currentContext!).pop();
+              },
+              icon: const Icon(Icons.arrow_back),
+            )
+          : IconButton(
+              onPressed: () => NavigationService.navigatorKey.currentContext!.read<UserProvider>().logout(),
+              icon: Icon(Icons.logout, size: 20),
+            ),
       title: TextButton(
         onPressed: () {
           // Navigator.pushReplacement(
@@ -34,9 +44,10 @@ class HomeBar extends StatelessWidget implements PreferredSizeWidget {
         },
         child: const Text(
           "Study Buddy",
+          textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white,
-            fontSize: 25.0,
+            fontSize: 22.0,
             letterSpacing: 1.1,
           ),
         ),
@@ -51,10 +62,6 @@ class HomeBar extends StatelessWidget implements PreferredSizeWidget {
   List<Widget> getActions(User? user) {
     if (user != null) {
       return [
-        IconButton(
-          onPressed: () => NavigationService.navigatorKey.currentContext!.read<UserProvider>().logout(),
-          icon: Icon(Icons.logout, size: 20),
-        ),
         CustomAvatar(avatarUrl: user.avatar, size: 35),
         SizedBox(width: 15),
       ];

@@ -116,36 +116,30 @@ class _MyHomePageState extends State<MyHomePage> {
                                   height: 40,
                                   alignment: Alignment.center,
                                   decoration: const BoxDecoration(
-                                    color: Color(0xFF50546F),
-                                    shape: BoxShape.rectangle,
-                                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                                    boxShadow: [BoxShadow(color: Color(0xFF71C5DD), 
-                                    offset: Offset(0, 0), 
-                                    spreadRadius: 1, 
-                                    blurRadius: 6)]
-                                  ),
+                                      color: Color(0xFF50546F),
+                                      shape: BoxShape.rectangle,
+                                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                                      boxShadow: [BoxShadow(color: Color(0xFF71C5DD), offset: Offset(0, 0), spreadRadius: 1, blurRadius: 6)]),
                                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                                   margin: const EdgeInsets.fromLTRB(7.0, 22.0, 7.0, 1.0),
                                   // create a search bar to search for rooms
-                                  child: const TextField(
-                                          textAlignVertical: TextAlignVertical.center,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                          decoration: InputDecoration(
-                                            // contentPadding: EdgeInsets.only(top: 0.02),
-                                            border: InputBorder.none,
-                                            hintStyle: TextStyle(
-                                              color: Color.fromARGB(255, 205, 205, 205)
-                                            ),
-                                            hintText: "Search for rooms",
-                                            focusColor: Colors.transparent,
-                                            icon: Icon(
+                                  child: TextField(
+                                    onChanged: (value) => provider.setFilter(value),
+                                    textAlignVertical: TextAlignVertical.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                    decoration: InputDecoration(
+                                      // contentPadding: EdgeInsets.only(top: 0.02),
+                                      border: InputBorder.none,
+                                      hintStyle: TextStyle(color: Color.fromARGB(255, 205, 205, 205)),
+                                      hintText: "Search for rooms",
+                                      focusColor: Colors.transparent,
+                                      icon: Icon(
                                         Icons.search,
-                                        color:  Color(0xFF71C5DD),
+                                        color: Color(0xFF71C5DD),
                                       ),
-                                          ),
-                                      
+                                    ),
                                   ),
                                 ),
                               ),
@@ -163,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: const [
-                                     Text(
+                                    Text(
                                       "STUDY ROOMS",
                                       style: TextStyle(
                                         letterSpacing: 1.0,
@@ -172,13 +166,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                       ),
                                     ),
                                     // const SizedBox(height: 5.0),
-                                    
                                   ],
                                 ),
                                 Text(
-                                      "${provider.rooms.length} Room(s) available",
-                                      style: const TextStyle(letterSpacing: 1.0, fontSize: 12.0, color: Color(0xFF696d97), fontWeight: FontWeight.w500),
-                                    ),
+                                  "${provider.rooms.length} Room(s) available",
+                                  style: const TextStyle(letterSpacing: 1.0, fontSize: 12.0, color: Color(0xFF696d97), fontWeight: FontWeight.w500),
+                                ),
                                 // Flexible(
                                 //   child: Container(
                                 //     width: 140,
@@ -219,13 +212,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         itemCount: provider.rooms.length,
                         itemBuilder: (context, i) {
                           return InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => RoomScreen(index: provider.rooms[i].id)));
-                            },
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 12),
-                              child: RoomCard(roomId: provider.rooms[i].id),
-                            ));
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => RoomScreen(index: provider.rooms[i].id)));
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 12),
+                                child: RoomCard(roomId: provider.rooms[i].id),
+                              ));
                         },
                       ),
                     ),
@@ -236,7 +229,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
 
 class LogoAnimation extends StatelessWidget {
   const LogoAnimation({

@@ -71,7 +71,7 @@ class _RoomScreenState extends State<RoomScreen> {
             child: Stack(
               children: [
                 ListView(children: [
-                  const HomeBar(),
+                  const HomeBar(home: true),
                   const SizedBox(
                     // height: MediaQuery.of(context).size.height * 0.02,
                     width: double.infinity,
@@ -264,7 +264,6 @@ class _RoomScreenState extends State<RoomScreen> {
                                       color: Color(0xFFb2bdbd),
                                       fontWeight: FontWeight.w400,
                                     ),
-
                                   ),
                                 );
                               }
@@ -296,9 +295,7 @@ class _RoomScreenState extends State<RoomScreen> {
                           child: TextField(
                             controller: newMessageController,
                             focusNode: messageFocusNode,
-                            style: TextStyle(
-                            color: Colors.white
-                          ),
+                            style: TextStyle(color: Colors.white),
                             decoration:
                                 const InputDecoration(hintText: "Write message...", hintStyle: TextStyle(color: Color.fromARGB(137, 207, 207, 207)), border: InputBorder.none),
                           ),
