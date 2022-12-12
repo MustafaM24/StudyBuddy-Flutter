@@ -43,7 +43,7 @@ class SpashScreen extends StatefulWidget {
 class _SpashScreenState extends State<SpashScreen> {
   @override
   void initState() {
-    Future.delayed(const Duration(milliseconds: 1), () {
+    Future.delayed(const Duration(seconds: 2), () {
       context.read<UserProvider>().checkAlreadyLoggedIn().then((value) {
         if (context.read<UserProvider>().currentUser == null) {
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
@@ -57,28 +57,16 @@ class _SpashScreenState extends State<SpashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
         backgroundColor: Color(0xFF2D2D39),
         body: Center(
             child: SizedBox(
           child: DefaultTextStyle(
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 35.0,
               fontWeight: FontWeight.bold,
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Study"),
-                AnimatedTextKit(
-                  animatedTexts: [
-                    TypewriterAnimatedText('Buddy'),
-                    TypewriterAnimatedText('Pal'),
-                    TypewriterAnimatedText('Mate'),
-                  ],
-                ),
-              ],
-            ),
+            child: LogoAnimation(),
           ),
         )));
   }
@@ -228,6 +216,33 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
+    );
+  }
+}
+
+
+class LogoAnimation extends StatelessWidget {
+  const LogoAnimation({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Hero(
+      tag: "logo",
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("Study"),
+          AnimatedTextKit(
+            animatedTexts: [
+              TypewriterAnimatedText('Buddy'),
+              TypewriterAnimatedText('Pal'),
+              TypewriterAnimatedText('Mate'),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

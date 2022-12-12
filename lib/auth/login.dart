@@ -21,18 +21,22 @@ class Login extends StatelessWidget {
       absorbing: provider.isLoading,
       child: Scaffold(
         backgroundColor: const Color(0xFF2D2D39),
+        appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 223, 223, 223),
+          elevation: 0,
+        ),
         body: SafeArea(
           child: Center(
             child: ListView(
               children: [
                 Container(
                   color: const Color.fromARGB(255, 223, 223, 223),
-                  padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height*0.08),
+                  padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.08),
                   child: SvgPicture.asset(
                     "assets/study.svg",
                     // color: Color.fromARGB(255, 255, 255, 255),
                     semanticsLabel: 'A red up arrow',
-                    height: MediaQuery.of(context).size.height*0.25,
+                    height: MediaQuery.of(context).size.height * 0.15,
                   ),
                 ),
                 Container(
@@ -44,12 +48,21 @@ class Login extends StatelessWidget {
                       const SizedBox(
                         height: 35.0,
                       ),
+                      const DefaultTextStyle(
+                          style: TextStyle(
+                            fontSize: 25.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          child: LogoAnimation()),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const [
                           Text(
                             "LOGIN",
-                            style: TextStyle(color: Colors.white, fontSize: 32.0, letterSpacing: 1.1, fontWeight: FontWeight.bold),
+                            style: TextStyle(color: Colors.white, fontSize: 20.0, letterSpacing: 1.1, fontWeight: FontWeight.bold),
                             // fontWeight: FontWeight.w400),
                           ),
                         ],
@@ -73,11 +86,10 @@ class Login extends StatelessWidget {
                         height: 45.0,
                         child: TextFormField(
                           controller: username,
-                          style: TextStyle(
-                            color: Colors.white
-                          ),
+                          style: TextStyle(color: Colors.white),
                           decoration: const InputDecoration(
                             enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFF6BB8CF), width: 1)),
+                            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFF6BB8CF), width: 1)),
                           ),
                         ),
                       ),
@@ -97,13 +109,12 @@ class Login extends StatelessWidget {
                       Container(
                         height: 45.0,
                         child: TextFormField(
-                          style: TextStyle(
-                            color: Colors.white
-                          ),
+                          style: TextStyle(color: Colors.white),
                           controller: password,
                           obscureText: true,
                           decoration: const InputDecoration(
                             enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFF6BB8CF), width: 1)),
+                            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFF6BB8CF), width: 1)),
                           ),
                         ),
                       ),
@@ -114,6 +125,10 @@ class Login extends StatelessWidget {
                           buttonText: "Log In",
                           isLoading: provider.isLoading,
                           onPressed: () {
+                            if (username.text.isEmpty || password.text.isEmpty) {
+                              SnackBarService.showWarningSnackBar(context, "Username or password is empty");
+                              return;
+                            }
                             provider.login(username.text, password.text).then((value) {
                               if (provider.currentUser != null) {
                                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MyHomePage()));
