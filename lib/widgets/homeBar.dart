@@ -27,10 +27,17 @@ class HomeBar extends StatelessWidget implements PreferredSizeWidget {
       leadingWidth: MediaQuery.of(context).size.width * 0.5,
       title: TextButton(
         onPressed: () {
+<<<<<<< Updated upstream
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const MyHomePage()),
           );
+=======
+          // Navigator.pushReplacement(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => MyHomePage()),
+          // );
+>>>>>>> Stashed changes
         },
         child: const Text(
           "Study Buddy",
@@ -51,12 +58,21 @@ class HomeBar extends StatelessWidget implements PreferredSizeWidget {
   List<Widget> getActions(User? user) {
     if (user != null) {
       return [
+<<<<<<< Updated upstream
         TextButton(
             onPressed: () => NavigationService.navigatorKey.currentContext!.read<UserProvider>().logout(), child: const Text('Logout', style: TextStyle(color: Colors.white))),
         Padding(
           padding: const EdgeInsets.only(right: 17.0),
           child: CustomAvatar(avatarUrl: user.avatar, size: 35),
         ),
+=======
+        IconButton(
+          onPressed: () => NavigationService.navigatorKey.currentContext!.read<UserProvider>().logout(),
+          icon: Icon(Icons.logout, size: 20),
+        ),
+        CustomAvatar(avatarUrl: user.avatar, size: 35),
+        SizedBox(width: 15),
+>>>>>>> Stashed changes
       ];
     } else {
       return [
