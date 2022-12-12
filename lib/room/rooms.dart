@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studybuddy/main.dart';
 import 'package:studybuddy/models/all_models.dart';
-import 'package:studybuddy/provider/data_provider.dart';
+import 'package:studybuddy/provider/room_provider.dart';
 import 'package:studybuddy/room/room.dart';
 import 'package:studybuddy/widgets/custom_avatar.dart';
 import 'package:studybuddy/widgets/homeBar.dart';

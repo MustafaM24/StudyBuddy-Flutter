@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:studybuddy/models/all_models.dart';
 import 'package:studybuddy/utils/network_util.dart';
 
-class DataProvider extends ChangeNotifier {
-  User? currentUser;
+class RoomProvider extends ChangeNotifier {
   List<Room> rooms;
   bool isLoading;
 
-  DataProvider({this.currentUser, this.rooms = const [], this.isLoading = true});
+  RoomProvider({this.rooms = const [], this.isLoading = true});
 
   void getRooms() async {
     isLoading = true;
@@ -22,7 +21,6 @@ class DataProvider extends ChangeNotifier {
       }
     } catch (e) {
       print(e);
-      rethrow;
     }
     isLoading = false;
     notifyListeners();

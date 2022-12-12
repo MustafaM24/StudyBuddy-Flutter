@@ -1,17 +1,21 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:studybuddy/provider/data_provider.dart';
+import 'package:studybuddy/auth/login.dart';
+import 'package:studybuddy/models/all_models.dart';
+import 'package:studybuddy/provider/room_provider.dart';
+import 'package:studybuddy/provider/user_provider.dart';
 import 'package:studybuddy/room/rooms.dart';
 import 'package:studybuddy/utils/navigation_service.dart';
-import 'package:studybuddy/utils/network_util.dart';
 import 'package:studybuddy/widgets/homeBar.dart';
 import 'package:studybuddy/widgets/room_card.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(
-    create: (context) => DataProvider(),
-    child: const MyApp(),
-  ));
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => RoomProvider()),
+    ChangeNotifierProvider(create: (context) => UserProvider()),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -21,8 +25,59 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       navigatorKey: NavigationService.navigatorKey,
       title: 'Flutter Demo',
-      home: const MyHomePage(),
+      home: const SpashScreen(),
     );
+  }
+}
+
+class SpashScreen extends StatefulWidget {
+  const SpashScreen({super.key});
+
+  @override
+  State<SpashScreen> createState() => _SpashScreenState();
+}
+
+class _SpashScreenState extends State<SpashScreen> {
+  @override
+  void initState() {
+    Future.delayed(const Duration(milliseconds: 1), () {
+      context.read<UserProvider>().checkAlreadyLoggedIn().then((value) {
+        if (context.read<UserProvider>().currentUser == null) {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
+        } else {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MyHomePage()));
+        }
+      });
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Color(0xFF2D2D39),
+        body: Center(
+            child: SizedBox(
+          child: DefaultTextStyle(
+            style: const TextStyle(
+              fontSize: 35.0,
+              fontWeight: FontWeight.bold,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Study"),
+                AnimatedTextKit(
+                  animatedTexts: [
+                    TypewriterAnimatedText('Buddy'),
+                    TypewriterAnimatedText('Pal'),
+                    TypewriterAnimatedText('Mate'),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        )));
   }
 }
 
@@ -38,13 +93,13 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 1), () async {
-      Provider.of<DataProvider>(context, listen: false).getRooms();
+      Provider.of<RoomProvider>(context, listen: false).getRooms();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    DataProvider provider = Provider.of<DataProvider>(context, listen: true);
+    RoomProvider provider = Provider.of<RoomProvider>(context, listen: true);
     if (provider.isLoading) {
       return const Scaffold(
         backgroundColor: Color(0xFF2D2D39),

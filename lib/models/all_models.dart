@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 
 class Room {
   int id;
@@ -22,7 +23,6 @@ class Room {
     required this.createdAt,
     required this.updatedAt,
   });
-  
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -40,9 +40,13 @@ class Room {
   factory Room.fromMap(Map<String, dynamic> map) {
     return Room(
       id: map['id'] as int,
-      participants: List<User>.from((map['participants'] as List<dynamic>).map<User>((x) => User.fromMap(x as Map<String,dynamic>),),),
-      host: User.fromMap(map['host'] as Map<String,dynamic>),
-      topic: Topic.fromMap(map['topic'] as Map<String,dynamic>),
+      participants: List<User>.from(
+        (map['participants'] as List<dynamic>).map<User>(
+          (x) => User.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
+      host: User.fromMap(map['host'] as Map<String, dynamic>),
+      topic: Topic.fromMap(map['topic'] as Map<String, dynamic>),
       name: map['name'] as String,
       description: map['description'] as String,
       createdAt: map['created_at'] as String,
@@ -112,20 +116,13 @@ class User {
   @override
   bool operator ==(covariant User other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.username == username &&
-      other.avatar == avatar &&
-      other.token == token;
+
+    return other.id == id && other.username == username && other.avatar == avatar && other.token == token;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^
-      username.hashCode ^
-      avatar.hashCode ^
-      token.hashCode;
+    return id.hashCode ^ username.hashCode ^ avatar.hashCode ^ token.hashCode;
   }
 }
 
@@ -137,7 +134,6 @@ class Topic {
     required this.id,
     required this.name,
   });
-
 
   Topic copyWith({
     int? id,
@@ -173,12 +169,73 @@ class Topic {
   @override
   bool operator ==(covariant Topic other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.name == name;
+
+    return other.id == id && other.name == name;
   }
 
   @override
   int get hashCode => id.hashCode ^ name.hashCode;
+}
+
+class Message {
+  final String id;
+  final String message;
+  final String createdAt;
+  final User user;
+
+  const Message({
+    required this.id,
+    required this.message,
+    required this.createdAt,
+    required this.user,
+  });
+
+  Message copyWith({
+    String? id,
+    String? message,
+    String? createdAt,
+    User? user,
+  }) {
+    return Message(
+      id: id ?? this.id,
+      message: message ?? this.message,
+      createdAt: createdAt ?? this.createdAt,
+      user: user ?? this.user,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      'message': message,
+      'created_at': createdAt,
+      'user': user.toMap(),
+    };
+  }
+
+  factory Message.fromMap(Map<String, dynamic> map) {
+    return Message(
+      id: map['id'] as String,
+      message: map['message'] as String,
+      createdAt: map['created_at'] as String,
+      user: User.fromMap(map['user'] as Map<String, dynamic>),
+    );
+  }
+
+  @override
+  String toString() {
+    return 'Message(id: $id, message: $message, createdAt: $createdAt, user: $user)';
+  }
+
+  @override
+  bool operator ==(covariant Message other) {
+    if (identical(this, other)) return true;
+
+    return other.id == id && other.message == message && other.createdAt == createdAt && other.user == user;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^ message.hashCode ^ createdAt.hashCode ^ user.hashCode;
+  }
 }
